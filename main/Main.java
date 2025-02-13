@@ -8,6 +8,8 @@ public class Main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("Battlefield");
+        // window.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        // window.setUndecorated(true);
 
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
