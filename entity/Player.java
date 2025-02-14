@@ -12,24 +12,29 @@ public class Player extends Entity {
     GamePanel gp;
     KeyHandler keyH;
 
+    public final int screenX;
+    public final int screenY;
+
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
+
+        screenX = gp.screenWidth/2 - (gp.tileSize/2);
+        screenY = gp.screenHeight/2 - (gp.tileSize/2);
 
         setDefaultValue();
         getPlayerImage();
     }
 
     public void setDefaultValue() {
-        x = 100; y = 100;
+        worldX = gp.tileSize * 40;
+        worldY = gp.tileSize * 12;
         speed = 4;
         direction = "down";
     }
 
     public void getPlayerImage() {
         try {
-            // down1 = ImageIO.read(getClass().getResourceAsStream("/res/player64/bob_down_1.png"));
-
             up1 = ImageIO.read(getClass().getResourceAsStream("/res/player32/boy_up_1.png"));
             up2 = ImageIO.read(getClass().getResourceAsStream("/res/player32/boy_up_2.png"));
             down1 = ImageIO.read(getClass().getResourceAsStream("/res/player32/boy_down_1.png"));
@@ -38,7 +43,6 @@ public class Player extends Entity {
             left2 = ImageIO.read(getClass().getResourceAsStream("/res/player32/boy_left_2.png"));
             right1 = ImageIO.read(getClass().getResourceAsStream("/res/player32/boy_right_1.png"));
             right2 = ImageIO.read(getClass().getResourceAsStream("/res/player32/boy_right_2.png"));
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -48,19 +52,19 @@ public class Player extends Entity {
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             if (keyH.upPressed) {
                 direction = "up";
-                y -= speed;
+                worldY -= speed;
             }
             if (keyH.downPressed) {
                 direction = "down";
-                y += speed;
+                worldY += speed;
             }
             if (keyH.leftPressed) {
                 direction = "left";
-                x -= speed;
+                worldX -= speed;
             }
             if (keyH.rightPressed) {
                 direction = "right";
-                x += speed;
+                worldX += speed;
             }
     
             spriteCounter++;
@@ -113,6 +117,6 @@ public class Player extends Entity {
                 break;
         }
 
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 }
