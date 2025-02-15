@@ -1,2 +1,3 @@
 # oop-game-test
-testing code for java oop mini-project
+testing java oop for game mini-project
+learned from RyiSnow
