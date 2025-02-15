@@ -4,6 +4,7 @@ import main.GamePanel;
 import main.KeyHandler;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -22,12 +23,15 @@ public class Player extends Entity {
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
         screenY = gp.screenHeight/2 - (gp.tileSize/2);
 
+        solidArea = new Rectangle(10, 24, 26, 22);
+        //x+1 -> w+2 
+
         setDefaultValue();
         getPlayerImage();
     }
 
     public void setDefaultValue() {
-        worldX = gp.tileSize * 40;
+        worldX = gp.tileSize * 35;
         worldY = gp.tileSize * 12;
         speed = 4;
         direction = "down";
@@ -52,21 +56,14 @@ public class Player extends Entity {
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             if (keyH.upPressed) {
                 direction = "up";
-                worldY -= speed;
-            }
-            if (keyH.downPressed) {
+            } else if (keyH.downPressed) {
                 direction = "down";
-                worldY += speed;
-            }
-            if (keyH.leftPressed) {
+            } else if (keyH.leftPressed) {
                 direction = "left";
-                worldX -= speed;
-            }
-            if (keyH.rightPressed) {
+            } else if (keyH.rightPressed) {
                 direction = "right";
-                worldX += speed;
             }
-    
+            
             spriteCounter++;
             if (spriteCounter > 15) {
                 if (spriteNum == 1) {
@@ -75,6 +72,36 @@ public class Player extends Entity {
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
+            }
+
+            collisionOn = false;
+            gp.cChecker.checkTile(this);
+    
+            if (collisionOn == false) {
+                switch (direction) {
+                    case "up":
+                        worldY -= speed;
+                        break;
+                    case "down":
+                        worldY += speed;
+                        break;
+                    case "left":
+                        worldX -= speed;
+                        break;
+                    case "right":
+                        worldX += speed;
+                        break;
+                }
+
+                // if (keyH.upPressed) {
+                //     worldY -= speed;
+                // } else if (keyH.downPressed) {
+                //     worldY += speed;
+                // } else if (keyH.leftPressed) {
+                //     worldX -= speed;
+                // } else if (keyH.rightPressed) {
+                //     worldX += speed;
+                // }
             }
         }
     }
