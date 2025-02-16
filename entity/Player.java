@@ -15,15 +15,22 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
+    int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
 
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
-        screenY = gp.screenHeight/2 - (gp.tileSize/2);
+        screenY = gp.screenHeight/2 - (gp.tileSize/2);        
 
-        solidArea = new Rectangle(10, 24, 26, 22);
+        solidArea = new Rectangle();
+        solidArea.x = 10;
+        solidArea.y = 24;
+        solidAreaDefualtX = solidArea.x;
+        solidAreaDefualtY =solidArea.y;
+        solidArea.width = 26;
+        solidArea.height = 22;
         //x+1 -> w+2 
 
         setDefaultValue();
@@ -76,6 +83,8 @@ public class Player extends Entity {
 
             collisionOn = false;
             gp.cChecker.checkTile(this);
+            int objIndex = gp.cChecker.checkObject(this, true);
+            pickUpObject(objIndex);
     
             if (collisionOn == false) {
                 switch (direction) {
@@ -92,16 +101,27 @@ public class Player extends Entity {
                         worldX += speed;
                         break;
                 }
+            }
+        }
+    }
 
-                // if (keyH.upPressed) {
-                //     worldY -= speed;
-                // } else if (keyH.downPressed) {
-                //     worldY += speed;
-                // } else if (keyH.leftPressed) {
-                //     worldX -= speed;
-                // } else if (keyH.rightPressed) {
-                //     worldX += speed;
-                // }
+    public void pickUpObject(int i) {
+        if (i != Integer.MAX_VALUE) {
+            String objectName = gp.obj[i].name;
+
+            switch (objectName) {
+                case "Key":
+                    hasKey++;
+                    gp.obj[i] = null;
+                    System.out.println("Got key. Key: " + hasKey);
+                    break;
+                case "Door":
+                    if (hasKey > 0) {
+                        gp.obj[i] = null;
+                        hasKey--;
+                        System.out.println("Key used. Key:" + hasKey);
+                    }
+                    break;
             }
         }
     }

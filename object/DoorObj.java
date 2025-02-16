@@ -12,5 +12,7 @@ public class DoorObj extends SuperObject {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        collision = true;
     }
 }
