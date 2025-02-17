@@ -53,7 +53,7 @@ public class TileManager {
 
     public void loadMap() {
         try {
-            InputStream is = getClass().getResourceAsStream("/res/maps/map03.txt");
+            InputStream is = getClass().getResourceAsStream("/res/maps/map04.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int col = 0;

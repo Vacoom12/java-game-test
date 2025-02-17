@@ -38,8 +38,8 @@ public class Player extends Entity {
     }
 
     public void setDefaultValue() {
-        worldX = gp.tileSize * 35;
-        worldY = gp.tileSize * 12;
+        worldX = gp.tileSize * 14;
+        worldY = gp.tileSize * 8;
         speed = 4;
         direction = "down";
     }
@@ -111,18 +111,21 @@ public class Player extends Entity {
 
             switch (objectName) {
                 case "Key":
+                    gp.playSE(1);
                     hasKey++;
                     gp.obj[i] = null;
                     System.out.println("Got key. Key: " + hasKey);
                     break;
                 case "Door":
                     if (hasKey > 0) {
+                        gp.playSE(3);
                         gp.obj[i] = null;
                         hasKey--;
                         System.out.println("Key used. Key:" + hasKey);
                     }
                     break;
                 case "Boots":
+                    gp.playSE(2);
                     speed += 4;
                     gp.obj[i] = null;
                     break;
