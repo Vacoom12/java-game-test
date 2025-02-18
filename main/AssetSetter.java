@@ -3,6 +3,7 @@ package main;
 import object.DoorObj;
 import object.KeyObj;
 import object.BootsObj;
+import object.ChestObj;
 
 public class AssetSetter {
     GamePanel gp;
@@ -28,16 +29,20 @@ public class AssetSetter {
         // gp.obj[3].worldX = 31 * gp.tileSize;
         // gp.obj[3].worldY = 6 * gp.tileSize; 
 
-        gp.obj[4] = new DoorObj();
-        gp.obj[4].worldX = 20 * gp.tileSize;
-        gp.obj[4].worldY = 12 * gp.tileSize; 
+        gp.obj[0] = new DoorObj();
+        gp.obj[0].worldX = 20 * gp.tileSize;
+        gp.obj[0].worldY = 12 * gp.tileSize; 
 
-        gp.obj[5] = new BootsObj();
-        gp.obj[5].worldX = 15 * gp.tileSize;
-        gp.obj[5].worldY = 13 * gp.tileSize; 
+        gp.obj[1] = new BootsObj();
+        gp.obj[1].worldX = 15 * gp.tileSize;
+        gp.obj[1].worldY = 13 * gp.tileSize; 
 
-        gp.obj[6] = new KeyObj();
-        gp.obj[6].worldX = 7 * gp.tileSize;
-        gp.obj[6].worldY = 4 * gp.tileSize; 
+        gp.obj[2] = new KeyObj();
+        gp.obj[2].worldX = 7 * gp.tileSize;
+        gp.obj[2].worldY = 4 * gp.tileSize;
+
+        gp.obj[3] = new ChestObj();
+        gp.obj[3].worldX = 23 * gp.tileSize;
+        gp.obj[3].worldY = 1 * gp.tileSize; 
     }
 }

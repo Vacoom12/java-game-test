@@ -32,9 +32,10 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler();
     Sound bgm = new Sound();
     Sound sfx = new Sound();
-    Thread gameThread;
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
+    public UI ui = new UI(this);
+    Thread gameThread;
 
     //Entity Object
     public Player player = new Player(this, keyH);
@@ -111,6 +112,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
         
         player.draw(g2);
+        ui.draw(g2);
 
         g2.dispose();
     }
