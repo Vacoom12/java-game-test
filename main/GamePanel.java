@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     //System
     TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler();
+    KeyHandler keyH = new KeyHandler(this);
     Sound bgm = new Sound();
     Sound sfx = new Sound();
     public CollisionChecker cChecker = new CollisionChecker(this);
@@ -41,7 +41,11 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this, keyH);
     public SuperObject obj[] = new SuperObject[10];
     
-
+    public int gameState;
+    public final int titleState = 0;
+    public final int playState = 1;
+    public final int pauseState = 2;
+    
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -54,6 +58,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
         aSetter.setObject();
         playMusic(0);
+        gameState = playState;
     }
 
     public void startGameThread() {
@@ -95,24 +100,34 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        player.update();
+        if (gameState == playState) {
+            player.update();
+        }
+
+        if (gameState == pauseState) {
+
+        }
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         Graphics2D g2 = (Graphics2D)g;
 
-        tileM.draw(g2);
+        // if (gameState == titleState) {
 
-        for (int i = 0; i < obj.length; i++) {
-            if (obj[i] != null) {
-                obj[i].draw(g2, this);
+        // } else {
+            tileM.draw(g2);
+    
+            for (int i = 0; i < obj.length; i++) {
+                if (obj[i] != null) {
+                    obj[i].draw(g2, this);
+                }
             }
-        }
+            
+            player.draw(g2);
+            ui.draw(g2);
+        // }
         
-        player.draw(g2);
-        ui.draw(g2);
 
         g2.dispose();
     }
