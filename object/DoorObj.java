@@ -7,6 +7,7 @@ import main.GamePanel;
 
 public class DoorObj extends SuperObject {
     GamePanel gp;
+    
     public DoorObj(GamePanel gp) {
         name = "Door";
         

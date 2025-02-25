@@ -7,11 +7,7 @@ import main.UtilityTool;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.nio.Buffer;
-
 import javax.imageio.ImageIO;
-import javax.swing.text.Utilities;
 
 public class Player extends Entity {
     GamePanel gp;
@@ -42,8 +38,8 @@ public class Player extends Entity {
     }
 
     public void setDefaultValue() {
-        worldX = gp.tileSize * 14;
-        worldY = gp.tileSize * 8;
+        worldX = gp.screenWidth/2 - (gp.tileSize/2);
+        worldY = gp.screenHeight/2 - (gp.tileSize/2);
         speed = 4;
         direction = "down";
     }
@@ -121,20 +117,20 @@ public class Player extends Entity {
 
     public void pickUpObject(int i) {
         if (i != Integer.MAX_VALUE) {
-            String objectName = gp.obj[i].name;
+            String objectName = gp.obj[gp.currentMap][i].name;
 
             switch (objectName) {
                 case "Key":
                     gp.playSE(1);
                     hasKey++;
-                    gp.obj[i] = null;
+                    gp.obj[gp.currentMap][i] = null;
                     gp.ui.showMessage("You got a key!");
 
                     break;
                 case "Door":
                     if (hasKey > 0) {
                         gp.playSE(3);
-                        gp.obj[i] = null;
+                        gp.obj[gp.currentMap][i] = null;
                         hasKey--;
                         gp.ui.showMessage("You open the door!");
                     } else {
@@ -144,7 +140,7 @@ public class Player extends Entity {
                 case "Boots":
                     gp.playSE(2);
                     speed += 4;
-                    gp.obj[i] = null;
+                    gp.obj[gp.currentMap][i] = null;
                     gp.ui.showMessage("SPEED UP!!!");
                     break;
                 case "Chest":

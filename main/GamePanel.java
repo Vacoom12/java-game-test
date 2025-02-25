@@ -24,6 +24,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxWorldRow = 16;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
+    public final int maxMap = 10;
+    public int currentMap = 0;
 
     int FPS = 60;
 
@@ -39,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     //Entity Object
     public Player player = new Player(this, keyH);
-    public SuperObject obj[] = new SuperObject[10];
+    public SuperObject obj[][] = new SuperObject[maxMap][10];
     
     public int gameState;
     public final int titleState = 0;
@@ -123,9 +125,9 @@ public class GamePanel extends JPanel implements Runnable {
         } else {
             tileM.draw(g2);
     
-            for (int i = 0; i < obj.length; i++) {
-                if (obj[i] != null) {
-                    obj[i].draw(g2, this);
+            for (int i = 0; i < obj[0].length; i++) {
+                if (obj[0][i] != null) {
+                    obj[0][i].draw(g2, this);
                 }
             }
             
